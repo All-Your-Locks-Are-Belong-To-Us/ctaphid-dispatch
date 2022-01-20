@@ -119,8 +119,8 @@ pub enum VendorCommand {
 }
 
 impl VendorCommand {
-    pub const FIRST: u8 = 0x40;
-    pub const LAST: u8 = 0x7f;
+    pub const FIRST: u8 = Self::H40 as u8;
+    pub const LAST: u8 = Self::H7F as u8;
 }
 
 impl TryFrom<u8> for VendorCommand {

@@ -58,13 +58,13 @@ impl Dispatch {
     #[inline(never)]
     pub fn poll<'a>(&mut self, apps: &mut [&'a mut dyn App]) -> bool {
         let maybe_request = self.responder.take_request();
-        if let Some((command, message)) = maybe_request {
-            // info_now!("cmd: {}", u8::from(command));
-            // info_now!("cmd: {:?}", command);
+        if let Some((command, message)) = &maybe_request {
+            info_now!("cmd: {}", u8::from(command));
+            info_now!("cmd: {:?}", command);
 
-            if let Some(app) = Self::find_app(command, apps) {
+            if let Some(app) = Self::find_app(*command, apps) {
                 // match app.call(command, self.responder.response_mut().unwrap()) {
-                self.call_app(*app, command, &message);
+                self.call_app(*app, *command, message);
             } else {
                 self.reply_with_error(Error::InvalidCommand);
             }
